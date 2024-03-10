@@ -25,22 +25,24 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => ProviderBloc(),
-      child: BlocBuilder<ProviderBloc, ProviderState>(
-        builder: (_, state) {
-          /*if (state is LoadingProviderState) {
-            return const LoadingPage();
-          }*/
-          if (state is RootTestsProviderState) {
-            print("state is RootTestsProviderState");
-            return const RootPage();
-          } else if (state is TestProviderState) {
-            print("state is TestProviderState");
-            return const TestPage();
-          } else {
-            print("state is empty");
-            return const LoadingPage();
-          }
-        },
+      child: MaterialApp(
+        home: BlocBuilder<ProviderBloc, ProviderState>(
+          builder: (_, state) {
+            /*if (state is LoadingProviderState) {
+              return const LoadingPage();
+            }*/
+            if (state is RootTestsProviderState) {
+              print("state is RootTestsProviderState");
+              return RootPage(state.list);
+            } else if (state is TestProviderState) {
+              print("state is TestProviderState");
+              return const TestPage();
+            } else {
+              print("state is empty");
+              return const LoadingPage();
+            }
+          },
+        ),
       ),
     );
   }

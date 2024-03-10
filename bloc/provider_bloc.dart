@@ -10,8 +10,9 @@ class ProviderBloc extends Bloc<ProviderEvent, ProviderState> {
   ProviderBloc() : super(LoadingProviderState()) {
     on<LoadingProviderEvent>((event, emit) =>
         _loading(event, emit)); //emit(LoadingProviderState()));
-    on<RootTestsProviderEvent>((event, emit) => emit(RootTestsProviderState()));
-    on<TestProviderEvent>((event, emit) => emit(TestProviderState()));
+    //on<RootTestsProviderEvent>((event, emit) => emit(RootTestsProviderState()));
+    on<TestProviderEvent>(
+        (event, emit) => emit(TestProviderState(event.quest)));
   }
 
   _loading(LoadingProviderEvent event, Emitter emit) async {
@@ -40,6 +41,15 @@ class ProviderBloc extends Bloc<ProviderEvent, ProviderState> {
     print(mybody.runtimeType);
     print(mylist);
 
-    emit(RootTestsProviderState());
+    emit(RootTestsProviderState(mylist));
   }
+
+  //_rootTests(RootTestsProviderEvent event, Emitter emit) {
+  //  emit(RootTestsProviderState());
+  //}
+
+  /*_tests(TestProviderEvent event, Emitter emit) {
+    
+    emit(TestProviderState(event.quest));
+  }*/
 }
